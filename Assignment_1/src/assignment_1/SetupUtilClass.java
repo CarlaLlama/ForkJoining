@@ -10,7 +10,7 @@ public class SetupUtilClass {
     private String fileIn;
     private String fileOut;
     private int filterSize;
-    float[] dataIn;
+    private float[] dataIn;
     
     public void input(){
         Scanner s = new Scanner(System.in);
@@ -35,12 +35,9 @@ public class SetupUtilClass {
                 String[] temp = b.readLine().split(" ");
                 dataIn[i] = Float.parseFloat(temp[1]);
             }
-            catch (IOException ex) {
-            logger.log(ex);
-            throw ex;
-            catch (FileNotFoundException ex) {
-            logger.log(ex);
-            throw ex;
+        }catch (IOException | NumberFormatException ex) {
+                System.out.println(ex);
+            
             }
     }
     
