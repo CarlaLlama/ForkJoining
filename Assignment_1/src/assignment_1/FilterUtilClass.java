@@ -5,10 +5,13 @@
  */
 package assignment_1;
 
-/**
- *
- * @author carla
- */
 public class FilterUtilClass {
     
+    public void naiveFilteringMethod(){
+        
+    }
+    
+    public float median(){
+        return 0;
+    }
 }

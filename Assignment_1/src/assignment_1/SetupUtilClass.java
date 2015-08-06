@@ -1,8 +1,10 @@
 package assignment_1;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -17,7 +19,7 @@ public class SetupUtilClass {
         String[] in = s.nextLine().split(" ");
         fileIn = in[0];
         int temp = Integer.parseInt(in[1]);
-        if((temp< 3)||(temp%2!=1)){
+        if((temp< 3)||(temp%2!=1)||(temp>21)){
             System.out.println("Invalid filter size, please enter correct filter size:");
             filterSize = s.nextInt();
         }else{
@@ -28,7 +30,7 @@ public class SetupUtilClass {
     
     public void reader(){
         try {
-            BufferedReader b = new BufferedReader(new FileReader("in.txt"));
+            BufferedReader b = new BufferedReader(new FileReader(fileIn));
             int noLines = Integer.parseInt(b.readLine());
             dataIn = new float[noLines];
             for(int i= 0; i < noLines; i++){
@@ -37,12 +39,16 @@ public class SetupUtilClass {
             }
         }catch (IOException | NumberFormatException ex) {
                 System.out.println(ex);
-            
             }
     }
     
     public void writer(){
-        
+        try {
+            BufferedWriter b = new BufferedWriter(new FileWriter(fileOut));
+            //TODO
+        }catch(IOException e){
+            System.out.println(e);
+        }
     }
     
     public int getFilterSize(){
