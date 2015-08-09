@@ -37,13 +37,14 @@ public class Assignment_1 {
          
          //Run parallel:
          double parStartTime = System.currentTimeMillis();
-         double[] parFiltered = par.medianFilter(data, s.getFilterSize());
-         double parTimeTaken = System.currentTimeMillis() - startTime;
-         
-         //Print timing:
+         double[] parFiltered = Parallel.medianFilter(data, s.getFilterSize());
+         double parTimeTaken = System.currentTimeMillis() - parStartTime;
+          //Print timing:
+         System.out.println("Parallel run took: "+parTimeTaken+"ms");
          System.out.println("Sequential run took: "+seqTimeTaken+"ms");
-         System.out.println("Parallel run took: "+parStartTime+"ms");
          
+        
+        
         //Write data to file:
          s.writer(seqFiltered);
     }
