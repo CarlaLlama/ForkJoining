@@ -13,7 +13,9 @@ import java.io.IOException;
  */
 public class Assignment_1 {
     SetupUtilClass s = new SetupUtilClass();
-
+    Sequential cls = new Sequential();
+    Parallel par = new Parallel();
+    
     /**
      * @param args the command line arguments
      */
@@ -24,12 +26,26 @@ public class Assignment_1 {
     }
     
     Assignment_1(){
+        //Read data in:
          s.input();
          s.reader();
-         float[] data = s.getData();
-         for(int i = 1; i <= data.length; i++){
-             System.out.println(i+ " "+data[i-1]);
-         }
+         double[] data = s.getData();
+         //Run sequential:
+         double startTime = System.currentTimeMillis();
+         double[] seqFiltered = cls.sequentialFiltering(data, s.getFilterSize());
+         double seqTimeTaken = System.currentTimeMillis() - startTime;
+         
+         //Run parallel:
+         double parStartTime = System.currentTimeMillis();
+         double[] parFiltered = par.medianFilter(data, s.getFilterSize());
+         double parTimeTaken = System.currentTimeMillis() - startTime;
+         
+         //Print timing:
+         System.out.println("Sequential run took: "+seqTimeTaken+"ms");
+         System.out.println("Parallel run took: "+parStartTime+"ms");
+         
+        //Write data to file:
+         s.writer(seqFiltered);
     }
     
 }

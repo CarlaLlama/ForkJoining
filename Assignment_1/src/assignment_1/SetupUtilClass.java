@@ -12,9 +12,10 @@ public class SetupUtilClass {
     private String fileIn;
     private String fileOut;
     private int filterSize;
-    private float[] dataIn;
+    private double[] dataIn;
     
     public void input(){
+        System.out.println("input file filtersize output file:");
         Scanner s = new Scanner(System.in);
         String[] in = s.nextLine().split(" ");
         fileIn = in[0];
@@ -32,20 +33,25 @@ public class SetupUtilClass {
         try {
             BufferedReader b = new BufferedReader(new FileReader(fileIn));
             int noLines = Integer.parseInt(b.readLine());
-            dataIn = new float[noLines];
+            dataIn = new double[noLines];
             for(int i= 0; i < noLines; i++){
                 String[] temp = b.readLine().split(" ");
-                dataIn[i] = Float.parseFloat(temp[1]);
+                dataIn[i] = Double.parseDouble(temp[1]);
             }
         }catch (IOException | NumberFormatException ex) {
                 System.out.println(ex);
             }
     }
     
-    public void writer(){
+    public void writer(double[] dataOut){
         try {
             BufferedWriter b = new BufferedWriter(new FileWriter(fileOut));
-            //TODO
+            b.write(dataOut.length);
+            b.newLine();
+            for (int i = 0; i < dataOut.length; i++) {
+                b.write((i+1)+" "+dataOut[i]);
+            }
+            b.close();
         }catch(IOException e){
             System.out.println(e);
         }
@@ -55,10 +61,7 @@ public class SetupUtilClass {
         return filterSize;
     }
     
-    public float[] getData(){
+    public double[] getData(){
         return dataIn;
     }
-    
-    
-    
 }
