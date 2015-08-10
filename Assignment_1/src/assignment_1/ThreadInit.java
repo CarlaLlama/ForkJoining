@@ -30,22 +30,31 @@ ThreadInit(double[] in,double[] out, int start, int end, int f) { this.in=in; th
             //Edge case where entire input is smaller than sequential threshold
             //Need to return out immediately
             if(start==0 && end==in.length){
-                for(int i = start; i < end-filterSize + 1; i++){
-                double[] temp = new double[filterSize];
-                System.arraycopy(in, i, temp, 0, filterSize);
-                Arrays.sort(temp);
-                out[i+(filterSize/2)] = calcMedian(temp);
-            }
-            return out;
+                for(int i = start; i < end-filterSize+1; i++){
+                    double[] temp = new double[filterSize];
+                    System.arraycopy(in, i, temp, 0, filterSize);
+                    Arrays.sort(temp);
+                    out[i+(filterSize/2)] = calcMedian(temp);
+                }
+                return out;
             //Else, for all other cases:
             }else{
-            for(int i = start; i < end-filterSize + 1; i++){
-                double[] temp = new double[filterSize];
-                System.arraycopy(in, i, temp, 0, filterSize);
-                Arrays.sort(temp);
-                out[i+(filterSize/2)] = calcMedian(temp);
-            }
-            return null;
+                for(int i = start; i < end-filterSize+1; i++){
+                    double[] temp = new double[filterSize];
+                    System.arraycopy(in, i, temp, 0, filterSize);
+                    Arrays.sort(temp);
+                    out[i+(filterSize/2)] = calcMedian(temp);
+                    //test for edge case where the filters overlap the boundary of the sequential threshold
+                    if(i==(end-filterSize) && i!=(in.length-filterSize)){
+                        for (int j = 0; j < filterSize; j++) {
+                            temp = new double[filterSize];
+                            System.arraycopy(in, i+j+1, temp, 0, filterSize);
+                            Arrays.sort(temp);
+                            out[i+(filterSize/2)+j+1] = calcMedian(temp);
+                        }
+                    }
+                }
+                return null;
             }
         }else{
             //Else continue to segment the array portions into new threads

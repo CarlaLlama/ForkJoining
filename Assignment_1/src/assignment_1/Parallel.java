@@ -28,4 +28,5 @@ public class Parallel {
         //Create Fork Join pool and initial thread
         return fjPool.invoke(new ThreadInit(array, output, 0, array.length, filterSize));
     }
+
 }
