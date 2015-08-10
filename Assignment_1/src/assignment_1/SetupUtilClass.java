@@ -1,8 +1,12 @@
+/*
+ * Setup Utilities class for reading and writing
+ * @author Carla Wilby
+ * Completed 10/08/2015
+ */
 package assignment_1;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +18,12 @@ public class SetupUtilClass {
     private int filterSize;
     private double[] dataIn;
     
+    
+/*
+ * Read input string from user
+ * In the following format:
+ * <input file> <filter size> <output file>
+ */
     public void input(){
         System.out.println("input file filtersize output file:");
         Scanner s = new Scanner(System.in);
@@ -29,6 +39,12 @@ public class SetupUtilClass {
         fileOut = in[2];
     }
     
+    /**
+     * Reads data in from the input file specified
+     * In the following format:
+     * First line: number of lines in the file
+     * All subsequent lines: <line number> <data piece>
+     */
     public void reader(){
         try {
             BufferedReader b = new BufferedReader(new FileReader(fileIn));
@@ -43,24 +59,40 @@ public class SetupUtilClass {
             }
     }
     
+    /**
+     * Passes data to the output file specified in the same
+     * format as the input file.
+     * @param dataOut (array containing the data to be written to file)
+     */
     public void writer(double[] dataOut){
         try {
-            BufferedWriter b = new BufferedWriter(new FileWriter(fileOut));
-            b.write(dataOut.length);
-            b.newLine();
-            for (int i = 0; i < dataOut.length; i++) {
-                b.write((i+1)+" "+dataOut[i]);
+            try (BufferedWriter b = new BufferedWriter(new FileWriter(fileOut))) {
+                String len = (dataOut.length)+"";
+                b.write(len);
+                for (int i = 0; i < dataOut.length; i++) {
+                    b.newLine();
+                    b.write((i+1)+" "+dataOut[i]);
+                    
+                }
             }
-            b.close();
         }catch(IOException e){
             System.out.println(e);
         }
     }
     
+    /**
+     * Safely pass the filter Size to other classes
+     * @return filter size
+     */
     public int getFilterSize(){
         return filterSize;
     }
     
+    /**
+     * Safely pass the array containing the unchanged data
+     * to other classes.
+     * @return data array
+     */
     public double[] getData(){
         return dataIn;
     }
